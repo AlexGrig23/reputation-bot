@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+{% load tz %}
+{% load i18n %}
+<html lang="uk" data-bs-theme="auto">
+<head>
+  <meta charset="utf-8">
+  <title>Member statistic</title>
+</head>
+<body class="member-statistic-body d-flex flex-column font m-0 p-0" id="div-size">
+
+  <div class="d-flex flex-row border m-4">
+
+    <div class="ms-auto">
+      {% if user.avatar_url is None %}
+      <svg xmlns="http://www.w3.org/2000/svg" fill="#A0A0A0FF" class="avatar m-4 p-1" viewBox="0 0 16 16">
+        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+      </svg>
+      {% else %}
+      <img src="{{ user.avatar_url }}" alt="avatar" class="avatar m-4 p-1">
+      {% endif %}
+    </div>
+
+    <div class="my-5 vertical_line"></div>
+
+    <div class="d-flex flex-column justify-content-center w-100 ms-4">
+      <span class="fs-60" style="max-width: 432px; overflow: hidden; text-overflow: ellipsis;">{{ user.first_name }}</span>
+      {% if user.last_name %}
+      <span class="fs-60" style="max-width: 432px; overflow: hidden; text-overflow: ellipsis;">{{ user.last_name }}</span>
+      {% endif %}
+      <span class="fs-30">{{ user.username }}</span>
+    </div>
+
+    <div class="my-5 vertical_line"></div>
+
+
+    <div class="d-flex flex-column align-items-center justify-content-center m-4">
+      <div class="d-flex flex-column align-items-center justify-content-center" style="height: 80px">
+        <span class="d-flex fs-50 align-items-center">Карма</span>
+      </div>
+
+      <div class="d-flex flex-row align-items-center justify-content-center">
+        <div class="d-flex flex-column align-items-center" style="width: 150px">
+          <span class="d-flex fs-20 align-items-center" style="text-align: center; height: 75px">Отримано<br>за період</span>
+          <span class="d-flex fs-50 align-items-center" style="height: 50px">{{ user.karma_count }}</span>
+        </div>
+
+        <div class="d-flex flex-column align-items-center" style="width: 150px">
+          <span class="d-flex fs-30 align-items-center" style="text-align: center; height: 75px">Всього</span>
+          <span class="d-flex fs-50 align-items-center" style="height: 50px">{{ user.total_karma_count }}</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="d-flex flex-column border mx-4 mb-4">
+    {% language 'uk' %}
+    <span class="fs-30 mx-3 mt-5">{{ user.start_date|date:"b. d, Y"|capfirst }} — {{ user.end_date|date:"b. d, Y"|capfirst }}</span>
+    {% endlanguage %}
+
+    <div class="d-flex">
+      {% if statistic %}
+      <table class="fs-30 m-3">
+
+        <thead>
+          <tr>
+            <th>Від</th>
+            <th>Карма</th>
+            <th>Повідомлення</th>
+            <th>Група</th>
+            <th>Дата</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {% for data in statistic %}
+          <tr>
+            <td style="max-width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ data.from_user.username }}</td>
+            <td>+{{ data.karma }}</td>
+            <td style="text-align: left; max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ data.description }}</td>
+            <td style="max-width: 300px;">{{ data.group.name }}</td>
+            {% language 'uk' %}
+            <td style="min-width: 110px; max-width: 180px">{{ data.created_at|date:"b. d, Y"|capfirst  }}</td>
+            {% endlanguage %}
+          </tr>
+        {% endfor %}
+        </tbody>
+
+      </table>
+      {% else %}
+
+        <div class="d-flex w-100 fs-50 mx-3 m-4">
+          <span>Немає даних за цей період</span>
+        </div>
+
+      {% endif %}
+    </div>
+  </div>
+
+</body>
+</html>
