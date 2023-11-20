@@ -1,4 +1,4 @@
-# Karma Telegram Bot
+# Reputation Telegram Bot
 Telegram bot built with Python. It was created to help track performance statistics for team members.
 
 ## Description
