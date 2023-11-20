@@ -42,7 +42,7 @@ then add poetry to the PATH variable
 ---
 **3. Create a `.env` file based on the `.env.example` file:**
    ```shell
-   cd karma-tg-bot
+   cd reputation-bot
    ```
    ```shell
    cp .env.example .env
