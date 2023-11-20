@@ -18,7 +18,7 @@ This bot is built in Python and integrated with the Telegram Bot API.
 ## Installation
 **1. Clone the repository:**
    ```shell
-   git clone 
+   git clone https://github.com/AlexGrig23/reputation-bot.git
    ```
 ---
 **2. Install the required dependencies using Poetry:**
@@ -30,7 +30,7 @@ This bot is built in Python and integrated with the Telegram Bot API.
    
 * if installed, execute:
    ```shell
-   cd karma-tg-bot/ poetry install
+   cd reputation-bot/ poetry install
    ```
    
 * if not installed, execute:
